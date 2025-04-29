@@ -29,10 +29,22 @@ class Board:
     def getRow(self,row):
         return self.board[row]
     def colorWord(self,word):
-        out = word.split()
+        out = ["","","", "", "", ""]
+        degreenedWord = list(word)
         #Green Codes First
         for i in range(len(word)):
             if word[i] == self.secretWord[i]:
-                out[i] = GREEN + word[i] + RESET
-        return "|" + out.join("|") + "|"
+                out[i] = GREEN + word[i]+"|" + RESET
+                degreenedWord.remove(word[i])
+        #Yellow
+        print(degreenedWord)
+        for i in range(len(word)):
+            if word[i] in degreenedWord:
+                out[i] = YELLOW + word[i]+"|" + RESET
+                degreenedWord.remove(word[i])
+        #Grey
+        for i in range(len(word)):
+            if len(out[i])==0:
+                out[i] = WHITE + word[i]+"|" + RESET
+        return "|" + "".join(out) + "|"
     
