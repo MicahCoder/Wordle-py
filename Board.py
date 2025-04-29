@@ -34,17 +34,17 @@ class Board:
         #Green Codes First
         for i in range(len(word)):
             if word[i] == self.secretWord[i]:
-                out[i] = GREEN + word[i]+"|" + RESET
+                out[i] = GREEN + word[i] + RESET
                 degreenedWord.remove(word[i])
         #Yellow
         print(degreenedWord)
         for i in range(len(word)):
             if len(out[i])==0 and word[i] in degreenedWord:
-                out[i] = YELLOW + word[i]+"|" + RESET
+                out[i] = YELLOW + word[i] + RESET
                 degreenedWord.remove(word[i])
         #Grey
         for i in range(len(word)):
             if len(out[i])==0:
-                out[i] = WHITE + word[i]+"|" + RESET
-        return "|" + "".join(out)
+                out[i] = WHITE + word[i] + RESET
+        return (WHITE+"|"+RESET) + (WHITE+"|"+RESET).join(out)
     
