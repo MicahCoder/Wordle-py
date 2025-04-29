@@ -30,7 +30,7 @@ class Board:
         return self.board[row]
     def colorWord(self,word):
         out = ["","","", "", "", ""]
-        degreenedWord = list(word)
+        degreenedWord = list(self.secretWord)
         #Green Codes First
         for i in range(len(word)):
             if word[i] == self.secretWord[i]:
@@ -39,12 +39,12 @@ class Board:
         #Yellow
         print(degreenedWord)
         for i in range(len(word)):
-            if word[i] in degreenedWord:
+            if len(out[i])==0 and word[i] in degreenedWord:
                 out[i] = YELLOW + word[i]+"|" + RESET
                 degreenedWord.remove(word[i])
         #Grey
         for i in range(len(word)):
             if len(out[i])==0:
                 out[i] = WHITE + word[i]+"|" + RESET
-        return "|" + "".join(out) + "|"
+        return "|" + "".join(out)
     
