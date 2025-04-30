@@ -1,5 +1,6 @@
 from Board import Board
 from Dictionary import Dictionary
+from Board import LetterList
 from time import sleep
 def ClearScreen():
     print("\033[2J")
@@ -7,9 +8,11 @@ def ClearScreen():
 
 dict = Dictionary()
 board = Board(dict.getRandomWord(), dict)
+letterList = LetterList()
 def playTurn(board):
     ClearScreen()
     print(board)
+    print(letterList)
     print("Write quit to exit game")
     guess = input("Enter your guess: ").upper()
     if guess == "quit":
