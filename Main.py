@@ -1,12 +1,32 @@
 from Board import Board
-def clearScreen():
+from Dictionary import Dictionary
+from Board import LetterList
+from time import sleep
+def ClearScreen():
     print("\033[2J")
     print("\033[H")
 
-board = Board("hello")
-print(board)
-clearScreen()
-board.guessNext("helio")
-board.guessNext("slate")
-print(board)
+dict = Dictionary()
+letterList = LetterList()
+board = Board(dict.getRandomWord(), dict,letterList)
+
+def playTurn(board):
+    ClearScreen()
+    print(board)
+    print(letterList)
+    print("Write quit to exit game")
+    guess = input("Enter your guess: ").upper()
+    if guess == "QUIT":
+        print("Exiting game.")
+        return False
+    if not dict.checkWord(guess):
+        print("Invalid word, try again.")
+        sleep(1)
+        return True
+    board.guessNext(guess)
+    return True
+while(not board.isComplete()):
+    if not playTurn(board):
+        break
+print("The secret word was:"+ board.secretWord)
 
