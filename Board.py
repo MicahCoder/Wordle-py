@@ -1,10 +1,12 @@
+from Dictionary import Dictionary
 GREEN = "\033[42m"
 YELLOW = "\033[43m"
 WHITE = "\033[47m"
 RESET = "\033[0m"
 class Board:
-    def __init__(self, secretWord):
+    def __init__(self, secretWord : str, dict : Dictionary):
         self.index=0
+        self.dict = dict
         self.secretWord = secretWord
         self.board = ["","","","","",""]
     def __str__(self):
@@ -12,16 +14,16 @@ class Board:
         for row in self.board:
             out+= self.rowToPrint(row)+"\n"
         return out
-    def rowToPrint(self,row):
+    def rowToPrint(self,row: int):
         if len(row) == 0:
             return WHITE + "| | | | | |" + RESET
         # return GREEN + "|"+"|".join(row)+"|" + RESET
         return self.colorWord(row)
-    def setRow(self,row,guess):
+    def setRow(self,row:int,guess:str):
         self.board[row] = guess
     def getIndex(self):
         return self.index
-    def guessNext(self,guess):
+    def guessNext(self,guess:str):
         if(self.index >= 6):
             raise Exception("No more guesses left")
         self.board[self.index] = guess
@@ -37,7 +39,6 @@ class Board:
                 out[i] = GREEN + word[i]+"|" + RESET
                 degreenedWord.remove(word[i])
         #Yellow
-        print(degreenedWord)
         for i in range(len(word)):
             if len(out[i])==0 and word[i] in degreenedWord:
                 out[i] = YELLOW + word[i]+"|" + RESET
@@ -47,4 +48,6 @@ class Board:
             if len(out[i])==0:
                 out[i] = WHITE + word[i]+"|" + RESET
         return "|" + "".join(out)
+    def isComplete(self):
+        return self.index >= 6 or self.board[self.index-1] == self.secretWord
     
