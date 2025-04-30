@@ -4,11 +4,11 @@ class Dictionary:
     def __init__(self):
         self.legalWords = None
         self.wordleWords = None
-    def checkWord(self, word):
+    def checkWord(self, word:str):
         if(self.legalWords == None):
              self.legalWords = open("assets/5LetterDict.txt","r").read().splitlines()
-        return word in self.wordleWords
+        return word.lower() in self.wordleWords
     def getRandomWord(self):
         if(self.wordleWords == None):
             self.wordleWords = open("assets/wordleWords.txt","r").read().splitlines()
-        return random.choice(self.wordleWords)
+        return random.choice(self.wordleWords).upper()
