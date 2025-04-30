@@ -8,37 +8,37 @@ GREY = "\033[48;5;237m"
 RESET = "\033[0m"
 class LetterList:
     def __init__(self):
-        self.letters = {"A":(WHITE+ "A" + RESET),
-                        "B":(WHITE+ "B" + RESET),
-                        "C":(WHITE+ "C" + RESET),
-                        "D":(WHITE+ "D" + RESET),
-                        "E":(WHITE+ "E" + RESET),
-                        "F":(WHITE+ "F" + RESET),
-                        "G":(WHITE+ "G" + RESET),
-                        "H":(WHITE+ "H" + RESET),
-                        "I":(WHITE+ "I" + RESET),
-                        "J":(WHITE+ "J" + RESET),
-                        "K":(WHITE+ "K" + RESET),
-                        "L":(WHITE+ "L" + RESET),
-                        "M":(WHITE+ "M" + RESET),
-                        "N":(WHITE+ "N" + RESET),
-                        "O":(WHITE+ "O" + RESET),
-                        "P":(WHITE+ "P" + RESET),
-                        "Q":(WHITE+ "Q" + RESET),
-                        "R":(WHITE+ "R" + RESET),
-                        "S":(WHITE+ "S" + RESET),
-                        "T":(WHITE+ "T" + RESET),
-                        "U":(WHITE+ "U" + RESET),
-                        "V":(WHITE+ "V" + RESET),
-                        "W":(WHITE+ "W" + RESET),
-                        "X":(WHITE+ "X" + RESET),
-                        "Y":(WHITE+ "Y" + RESET),
-                        "Z":(WHITE+ "Z" + RESET)}
+        self.letters = {"A":("white",(WHITE+ "A" + RESET)),
+                        "B":("white",(WHITE+ "B" + RESET)),
+                        "C":("white",(WHITE+ "C" + RESET)),
+                        "D":("white",(WHITE+ "D" + RESET)),
+                        "E":("white",(WHITE+ "E" + RESET)),
+                        "F":("white",(WHITE+ "F" + RESET)),
+                        "G":("white",(WHITE+ "G" + RESET)),
+                        "H":("white",(WHITE+ "H" + RESET)),
+                        "I":("white",(WHITE+ "I" + RESET)),
+                        "J":("white",(WHITE+ "J" + RESET)),
+                        "K":("white",(WHITE+ "K" + RESET)),
+                        "L":("white",(WHITE+ "L" + RESET)),
+                        "M":("white",(WHITE+ "M" + RESET)),
+                        "N":("white",(WHITE+ "N" + RESET)),
+                        "O":("white",(WHITE+ "O" + RESET)),
+                        "P":("white",(WHITE+ "P" + RESET)),
+                        "Q":("white",(WHITE+ "Q" + RESET)),
+                        "R":("white",(WHITE+ "R" + RESET)),
+                        "S":("white",(WHITE+ "S" + RESET)),
+                        "T":("white",(WHITE+ "T" + RESET)),
+                        "U":("white",(WHITE+ "U" + RESET)),
+                        "V":("white",(WHITE+ "V" + RESET)),
+                        "W":("white",(WHITE+ "W" + RESET)),
+                        "X":("white",(WHITE+ "X" + RESET)),
+                        "Y":("white",(WHITE+ "Y" + RESET)),
+                        "Z":("white",(WHITE+  "Z"+RESET))}
         for letter in self.letters:
             letter
     def __str__(self):
         out =  GREY+" "*21 + "\n " + RESET
-        letters = list(self.letters.values())
+        letters = [i[1] for i in list(self.letters.values())]
         for i in range(len(letters)):
             out += letters[i] + GREY + " " + RESET
             if(i%10 == 9):
@@ -46,11 +46,11 @@ class LetterList:
         return out +GREY +"\n" + " "*13 + RESET
     def updateLetter(self,letter:str,color:str):
         if color == "green":
-            self.letters[letter] = GREEN + letter + RESET
+            self.letters[letter] = ("green",GREEN + letter + RESET)
         elif color == "yellow":
-            self.letters[letter] = YELLOW + letter + RESET
+            self.letters[letter] = ("yellow",YELLOW + letter + RESET)
         elif color == "grey":
-            self.letters[letter] = GREY + letter + RESET
+            self.letters[letter] = ("grey",GREY + letter + RESET)
 
 class Board:
     def __init__(self, secretWord : str, dict : Dictionary, letterList : LetterList):
@@ -87,19 +87,19 @@ class Board:
         for i in range(len(word)):
             if word[i] == self.secretWord[i]:
                 out[i] = GREEN + word[i]+"|" + RESET
-                self.letterList.updateLetter(self.letterList, word[i], "green")
+                self.letterList.updateLetter(word[i], "green")
                 degreenedWord.remove(word[i])
         #Yellow
         for i in range(len(word)):
             if len(out[i])==0 and word[i] in degreenedWord:
                 out[i] = YELLOW + word[i]+"|" + RESET
-                self.letterList.updateLetter(self.letterList, word[i], "yellow")
+                self.letterList.updateLetter(word[i], "yellow")
                 degreenedWord.remove(word[i])
         #Grey
         for i in range(len(word)):
             if len(out[i])==0:
                 out[i] = GREY + word[i]+"|" + RESET
-                self.letterList.updateLetter(self.letterList, word[i], "grey")
+                self.letterList.updateLetter(word[i], "grey")
         return "|" + "".join(out)
     def isComplete(self):
         return self.index >= 6 or self.board[self.index-1] == self.secretWord

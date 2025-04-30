@@ -7,8 +7,9 @@ def ClearScreen():
     print("\033[H")
 
 dict = Dictionary()
-board = Board(dict.getRandomWord(), dict)
 letterList = LetterList()
+board = Board(dict.getRandomWord(), dict,letterList)
+
 def playTurn(board):
     ClearScreen()
     print(board)
