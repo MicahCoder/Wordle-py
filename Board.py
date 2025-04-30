@@ -48,9 +48,11 @@ class LetterList:
         if color == "green":
             self.letters[letter] = ("green",GREEN + letter + RESET)
         elif color == "yellow":
-            self.letters[letter] = ("yellow",YELLOW + letter + RESET)
+            if(self.letters[letter][0] != "green"):
+                self.letters[letter] = ("yellow",YELLOW + letter + RESET)
         elif color == "grey":
-            self.letters[letter] = ("grey",GREY + letter + RESET)
+            if(self.letters[letter][0] != "green" and self.letters[letter][0] != "yellow"):
+                self.letters[letter] = ("grey",GREY + letter + RESET)
 
 class Board:
     def __init__(self, secretWord : str, dict : Dictionary, letterList : LetterList):

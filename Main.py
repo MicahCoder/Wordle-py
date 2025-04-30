@@ -16,17 +16,17 @@ def playTurn(board):
     print(letterList)
     print("Write quit to exit game")
     guess = input("Enter your guess: ").upper()
-    if guess == "quit":
+    if guess == "QUIT":
         print("Exiting game.")
         return False
     if not dict.checkWord(guess):
         print("Invalid word, try again.")
-        sleep(1.5)
+        sleep(1)
         return True
     board.guessNext(guess)
     return True
 while(not board.isComplete()):
     if not playTurn(board):
         break
-
+print("The secret word was:"+ board.secretWord)
 

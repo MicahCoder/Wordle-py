@@ -7,7 +7,7 @@ class Dictionary:
     def checkWord(self, word:str):
         if(self.legalWords == None):
              self.legalWords = open("assets/5LetterDict.txt","r").read().splitlines()
-        return word.lower() in self.wordleWords
+        return word.lower() in self.legalWords
     def getRandomWord(self):
         if(self.wordleWords == None):
             self.wordleWords = open("assets/wordleWords.txt","r").read().splitlines()
