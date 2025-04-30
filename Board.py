@@ -105,3 +105,5 @@ class Board:
         return "|" + "".join(out)
     def isComplete(self):
         return self.index >= 6 or self.board[self.index-1] == self.secretWord
+    def winState(self):
+        return self.board[self.index-1] == self.secretWord

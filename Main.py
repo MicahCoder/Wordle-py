@@ -2,15 +2,13 @@ from Board import Board
 from Dictionary import Dictionary
 from Board import LetterList
 from time import sleep
+
+dict = Dictionary()
+
 def ClearScreen():
     print("\033[2J")
     print("\033[H")
-
-dict = Dictionary()
-letterList = LetterList()
-board = Board(dict.getRandomWord(), dict,letterList)
-
-def playTurn(board):
+def playTurn(board, letterList):
     ClearScreen()
     print(board)
     print(letterList)
@@ -25,8 +23,20 @@ def playTurn(board):
         return True
     board.guessNext(guess)
     return True
-while(not board.isComplete()):
-    if not playTurn(board):
+def playGame():
+    letterList = LetterList()
+    board = Board(dict.getRandomWord(), dict,letterList)
+    while(not board.isComplete()):
+        if not playTurn(board,letterList):
+            break
+    ClearScreen()
+    print(board)
+    print("The secret word was:"+ board.secretWord)
+    print("YOU WIN!" if board.winState() else "YOU LOSE!")
+    print("Press enter to play again, write quit to exit")
+while True:
+    playGame()
+    if input().lower() == "quit":
         break
-print("The secret word was:"+ board.secretWord)
+    ClearScreen()
 
